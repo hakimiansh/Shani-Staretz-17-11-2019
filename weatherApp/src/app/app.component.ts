@@ -9,28 +9,31 @@ import { City } from './modules/city';
 })
 export class AppComponent implements OnInit {
   cities:City[];
+  currentCity:City;
   title = 'weatherApp';
 
-  constructor (private citiesService:CitiesService ){}
-  ngOnInit(): void {
-    // this.getCities();
-    this.getCity();
+  constructor (private citiesService:CitiesService ){
+    this.cities=new Array();
+    this.currentCity={cityId:"215854",cityName:"Tel Aviv",today:null,weekDays:null}
   }
-  async getCities(){
-      var citiesPromise=await this.citiesService.getCities()
-      // .then(data => {
-      //   console.log("data: ",data);
-      // });
-      console.log("2. citiesPromise",citiesPromise);
-      console.log("2. citiesPromise",typeof(citiesPromise));
-      var cities = Promise.resolve(citiesPromise)
-      console.log("2. cities",cities);
-      console.log("2. cities",typeof(cities));
+  ngOnInit(): void {
+    this.getCities();
+    this.getCity(this.currentCity.cityId);
+  }
+  getCities(){
+       this.citiesService.getCities()
+      .then(data => {
+        this.cities=data;
+        // console.log("data: ",data);
+        console.log("cities: ",this.cities);
+      });
   }
 
-  getCity(){
-    this.citiesService.getCity("215854")
-    .then(d=>console.log("d",d));
+  getCity(cityID:string){
+    this.citiesService.getCurrentCityWeather(cityID)
+    .then(d=>{
+      this.currentCity.today=d;
+      console.log("this.currentCity",this.currentCity)});
     ;
   }
 }
