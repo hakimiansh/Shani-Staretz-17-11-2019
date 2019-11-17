@@ -18,10 +18,12 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getCities();
-    this.getCity(this.currentCity.cityId);
+    // this.getCurrentCityWeather(this.currentCity.cityId);
+    // this.getAutocompleteCity(this.currentCity.cityName);
+    // this.getforecasts(this.currentCity.cityId);
   }
   getCities(){
-       this.citiesService.getCities()
+       this.citiesService.getTopCities()
       .then(data => {
         this.cities=data;
         // console.log("data: ",data);
@@ -29,11 +31,27 @@ export class AppComponent implements OnInit {
       });
   }
 
-  getCity(cityID:string){
+  getCurrentCityWeather(cityID:string){
     this.citiesService.getCurrentCityWeather(cityID)
     .then(d=>{
       this.currentCity.today=d;
       console.log("this.currentCity",this.currentCity)});
     ;
   }
+  getAutocompleteCity(cityName:string){
+    this.citiesService.getAutocompleteCity(cityName)
+    .then(d=>{
+      ;
+      console.log("d",d)});
+    ;
+  }
+
+  getforecasts(cityID:string){
+    this.citiesService.getforecasts(cityID)
+    .then(d=>{
+      this.currentCity.weekDays=d;
+      console.log("weekdays",d);
+      console.log("this.currentCity",this.currentCity)});
+  }
+
 }
