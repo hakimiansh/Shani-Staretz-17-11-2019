@@ -1,0 +1,48 @@
+<div class="a-container">
+<div class="ng-autocomplete">
+    <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+    </ng-template>
+</div>
+</div>
+<div class="today-container">
+
+    <img [src]="currentCity.today.logoUrl" alt="" srcset="">
+    <div>
+        <h1>{{currentCity.cityName}}</h1>
+        <h1>{{currentCity.today.degree.celsius}}</h1>
+    </div>
+</div>
+
+<div>
+
+    <div class="weatherText-container">
+        <h1>{{currentCity.today.weatherText}}</h1>
+    </div>
+    <div class="weekDay-container">
+
+        
+        <div class="weekDay" *ngFor="let day of currentCity.weekDays">
+            <span class="weekDay-text">{{day.dayName}}</span>
+            <span>{{day.degree.celsius}}</span>
+        </div>
+        <!-- <ul>
+            <li *ngFor="let day of currentCity.weekDays">
+                <h1>{{day.date}}</h1> </li>
+        </ul> -->
+    </div>
+    <!-- <div *ngIf="currentCity.weekDays!=null" *ngFor="let day of currentCity.weekDays">
+        <h1>{{day.degree.celsius}}</h1> 
+    </div> -->
+
+
+</div>

@@ -46,35 +46,24 @@ export class CitiesService {
 
   }
 
-  async getforecasts(cityID:string) {
+  async getforecasts(cityID: string) {
 
-let url=`${cityForecasts}${cityID}?apikey=${apiKey}&metric=true`;
+    let url = `${cityForecasts}${cityID}?apikey=${apiKey}&metric=true`;
 
-var weekDays:Day[]=[];
+    var weekDays: Day[] = [];
     try {
       const response = await fetch(url);
       const data = await response.json();
-      
-      const dForecasts=data.DailyForecasts;
-     
-      console.log("dForecasts",dForecasts);
+
+      const dForecasts = data.DailyForecasts;
+
+
       for (let i = 0; i < dForecasts.length; i++) {
-        let temp:Day={date:dForecasts[i].Date, degree:{celsius:dForecasts[i].Temperature.Minimum.Value+'\xB0C',fahrenheit:this.cToF(dForecasts[i].Temperature.Minimum.Value)},logoUrl:this.getLogoURL(dForecasts[i].Day.Icon)}
+        let temp: Day = { date: dForecasts[i].Date, degree: { celsius: dForecasts[i].Temperature.Minimum.Value + '\xB0C', fahrenheit: this.cToF(dForecasts[i].Temperature.Minimum.Value) }, logoUrl: this.getLogoURL(dForecasts[i].Day.Icon) }
         weekDays.push(temp);
-        console.log("weekDays[i]",weekDays[i]);
-        }
-        
-      // for (const k in data.dForecasts) {
-        
-      //     weekDays[k] = {
-      //       date: data[k].date,
-      //       degree: {celsius:data[k].Temperature.Maximum.Value,fahrenheit:"NA"},
-      //       logoUrl: this.getLogoURL(data[k].Day.Icon)
-          
-      //     }
-      //     console.log(weekDays[k])  ;
-        
-      // }
+
+      }
+
       return weekDays;
 
     } catch (err) {
@@ -124,15 +113,7 @@ var weekDays:Day[]=[];
       const response = await fetch(url)
 
       const data = await response.json();
-      // day = this.readCity(data);
-      // var day: Day = {
-      //   date: data[0].LocalObservationDateTime,
-      //   degree: {
-      //     celsius: data[0].Temperature.Metric.Value,
-      //     fahrenheit: data[0].Temperature.Imperial.Value
-      //   },
-      //   logoUrl: this.getLogoURL(data[0].WeatherIcon),
-      // }
+
       if (data[0] !== null) {
         return {
           date: data[0].LocalObservationDateTime,
@@ -171,22 +152,20 @@ var weekDays:Day[]=[];
     return res.imgSrc;
   }
 
-  cToF(celsius):string 
-{
-  var cTemp = celsius;
-  var cToFahr = cTemp * 9 / 5 + 32;
-  // var message = cTemp+'\xB0C is ' + cToFahr + ' \xB0F.';
+  cToF(celsius): string {
+    var cTemp = celsius;
+    var cToFahr = cTemp * 9 / 5 + 32;
+    // var message = cTemp+'\xB0C is ' + cToFahr + ' \xB0F.';
     // console.log(message);
-    return cToFahr+' \xB0F';
-}
+    return cToFahr + ' \xB0F';
+  }
 
-fToC(fahrenheit) 
-{
-  var fTemp = fahrenheit;
-  var fToCel = (fTemp - 32) * 5 / 9;
-  // var message = fTemp+'\xB0F is ' + fToCel + '\xB0C.';
+  fToC(fahrenheit) {
+    var fTemp = fahrenheit;
+    var fToCel = (fTemp - 32) * 5 / 9;
+    // var message = fTemp+'\xB0F is ' + fToCel + '\xB0C.';
     // console.log(message);
-    return fToCel+'\xB0C';
-} 
+    return fToCel + '\xB0C';
+  }
 
 }

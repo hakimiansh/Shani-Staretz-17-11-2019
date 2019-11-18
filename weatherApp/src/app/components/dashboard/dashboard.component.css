@@ -1,0 +1,57 @@
+.today-container{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: gainsboro;
+    border-radius: 10%;
+    border: solid 3px grey;
+    height: 10%;
+    width: 10%;
+    margin: 2%;
+    padding: 1%;
+}
+
+.weekDay{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: gainsboro;
+    border-radius: 10%;
+    border: solid 3px grey;
+    height: 10%;
+    width: 10%;
+    margin: 2%;
+    padding: 1%;
+}
+
+.weekDay-container{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    /* border-radius: 10%; */
+    /* border: solid 3px grey; */
+    height: 50%;
+    width: 100%;
+    margin: 2%;
+    padding: 1%;
+}
+
+.weekDay-text{
+margin: 1%;
+padding: 2%;
+}
+
+.a-container ,.weatherText-container {
+    width: 100%;
+    
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1%;
+
+}

@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
       .then(data => {
         this.cities=data;
         // console.log("data: ",data);
-        console.log("cities: ",this.cities);
+        // console.log("cities: ",this.cities);
       });
   }
 
@@ -35,14 +35,16 @@ export class AppComponent implements OnInit {
     this.citiesService.getCurrentCityWeather(cityID)
     .then(d=>{
       this.currentCity.today=d;
-      console.log("this.currentCity",this.currentCity)});
+      // console.log("this.currentCity",this.currentCity);
+    });
     ;
   }
   getAutocompleteCity(cityName:string){
     this.citiesService.getAutocompleteCity(cityName)
     .then(d=>{
       ;
-      console.log("d",d)});
+      // console.log("d",d);
+    });
     ;
   }
 
@@ -50,8 +52,9 @@ export class AppComponent implements OnInit {
     this.citiesService.getforecasts(cityID)
     .then(d=>{
       this.currentCity.weekDays=d;
-      console.log("weekdays",d);
-      console.log("this.currentCity",this.currentCity)});
+      // console.log("weekdays",d);
+      // console.log("this.currentCity",this.currentCity)
+    });
   }
 
 }
