@@ -3,6 +3,8 @@ import { City } from 'src/app/modules/city';
 import { CitiesService } from 'src/services/cities.service';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { Day } from 'src/app/modules/day';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,9 @@ import { Day } from 'src/app/modules/day';
 
 export class DashboardComponent implements OnInit {
   currentCity: City;
+  celsius: boolean;
+  toggleButtonText:string
+  favoriteIcon = faHeart;
 
   keyword = 'name';
   data = [
@@ -28,8 +33,8 @@ export class DashboardComponent implements OnInit {
       cityName: "Tel Aviv",
       today: {
         date: null,
-        dayName:"",
-        weatherText:"",
+        dayName: "",
+        weatherText: "",
         degree: {
           celsius: null,
           fahrenheit: null
@@ -38,10 +43,21 @@ export class DashboardComponent implements OnInit {
       },
       weekDays: null
     }
+    this.celsius = true;
+    this.toggleButtonText='\xB0F' +'/' +'\xB0C';
   }
 
   ngOnInit() {
+    this.fillCityData(this.currentCity.cityId)
+  }
 
+  addToFavorites() {
+    alert("adding to favorites" + this.currentCity.cityId);
+
+  }
+
+  toggleDegree() {
+    this.celsius = !this.celsius;
   }
 
   async getAutocompleteCity(cityName: string) {
@@ -75,47 +91,71 @@ export class DashboardComponent implements OnInit {
   //   // return results;
   // }
 
-  getforecasts(cityID:string){
+  getforecasts(cityID: string) {
     this.citiesService.getforecasts(cityID)
-    .then(d=>{
-      this.currentCity.weekDays=d;
-      // console.log("weekdays",d);
-      // console.log("this.currentCity",this.currentCity)
-    });
-  }
-
-
-
-  async selectEvent(item) {
-    // console.log("item:", item);
-    // console.log( this.currentCity);
-    this.currentCity.cityName = item.name;
-    this.currentCity.cityId = item.id;
-
-    this.citiesService.getCurrentCityWeather(item.id)
-      .then(weatherResults => {
-       
-        this.currentCity.today = weatherResults;
-        // console.log(this.currentCity.today.logoUrl);
-      });
-      
-      this.citiesService.getforecasts(item.id)
-      .then(weekDays=>{
-        this.currentCity.weekDays=weekDays;
+      .then(d => {
+        this.currentCity.weekDays = d;
         // console.log("weekdays",d);
         // console.log("this.currentCity",this.currentCity)
       });
-
-    //  await this.getCurrentCityWeather(item.id)  
-    //   .then(data => {
-    //     // this.cities=data;
-    //     console.log("data: ",data);
-    //     // console.log("cities: ",this.cities);
-    //   });
-    // console.log("results",(results));
-    // this.currentCity.today=results;
-
   }
+
+  async fillCityData(id) {
+
+    this.citiesService.getCurrentCityWeather(id)
+      .then(weatherResults => {
+
+        this.currentCity.today = weatherResults;
+        // console.log(this.currentCity.today.logoUrl);
+      });
+
+    this.citiesService.getforecasts(id)
+      .then(weekDays => {
+        this.currentCity.weekDays = weekDays;
+        // console.log("weekdays",d);
+        // console.log("this.currentCity",this.currentCity)
+      });
+  }
+
+
+  selectEvent(item) {
+    this.currentCity.cityName = item.name;
+    this.currentCity.cityId = item.id;
+    this.fillCityData(item.id)
+  }
+
+
+
+  // async selectEvent(item) {
+  //   // console.log("item:", item);
+  //   // console.log( this.currentCity);
+  //   this.currentCity.cityName = item.name;
+  //   this.currentCity.cityId = item.id;
+
+  //   this.citiesService.getCurrentCityWeather(item.id)
+  //     .then(weatherResults => {
+
+  //       this.currentCity.today = weatherResults;
+  //       // console.log(this.currentCity.today.logoUrl);
+  //     });
+
+  //     this.citiesService.getforecasts(item.id)
+  //     .then(weekDays=>{
+  //       this.currentCity.weekDays=weekDays;
+  //       // console.log("weekdays",d);
+  //       // console.log("this.currentCity",this.currentCity)
+  //     });
+
+  //   //  await this.getCurrentCityWeather(item.id)  
+  //   //   .then(data => {
+  //   //     // this.cities=data;
+  //   //     console.log("data: ",data);
+  //   //     // console.log("cities: ",this.cities);
+  //   //   });
+  //   // console.log("results",(results));
+  //   // this.currentCity.today=results;
+
+  // }
 
   async onChangeSearch(val: string) {
     var searchResults = [];

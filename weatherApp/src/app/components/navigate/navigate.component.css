@@ -2,10 +2,14 @@ nav {
     display: flex;
     width: 100%;
     justify-content: center;
-    background-color: darkorange;
+    background-color: lightblue;
 }
 nav a {
+    background: green;
+    width: 50%;
+    height: 100%;
     color: #000;
+
     text-decoration: none;
     font-weight: bold;
 }
@@ -20,4 +24,10 @@ ul li {
 
 nav a.current-page {
     font-weight: normal;
+}
+
+a:active{
+    background-color: rgba(9,51,121,1);
+    color: white;
+
 }

@@ -1,15 +1,79 @@
-.today-container{
+.dashboard-container{
+    background-color: lightgray;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.a-container  {
+    width: 100%;
+    
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background: gainsboro;
-    border-radius: 10%;
+    margin-top: 1%;
+
+}
+
+
+.cityTitle-container{
+    /* background-color:  lightcoral; */
+    width: 80%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10%;
+}
+.cityTitle{
+    font-size: 300%;
+}
+
+.today-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient( rgba(9,51,121,1) 35%, rgba(0,212,255,1) 100%);
+    /* border-radius: 15%; */
     border: solid 3px grey;
     height: 10%;
-    width: 10%;
+    width: 30%;
     margin: 2%;
     padding: 1%;
+    color: white;
+}
+
+
+
+.todayIconDegrees-container{
+    width: 80%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* background: rgb(9,51,121); */
+
+}
+.degreeText{
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.DayIcon{
+    width: 40%;
+    height: 40%;
+}
+
+.weatherText-container{
+    width: 100%;
+    /* background-color: lime; */
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1%;
 }
 
 .weekDay{
@@ -19,11 +83,16 @@
     justify-content: center;
     background: gainsboro;
     border-radius: 10%;
-    border: solid 3px grey;
-    height: 10%;
+    /* border: solid 3px grey; */
+    height: 70%;
     width: 10%;
     margin: 2%;
-    padding: 1%;
+    /* padding: 1%; */
+}
+.days-container{
+    width: 80%;
+    border-color: steelblue;
+
 }
 
 .weekDay-container{
@@ -31,7 +100,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background: white;
+    background: steelblue;
     /* border-radius: 10%; */
     /* border: solid 3px grey; */
     height: 50%;
@@ -41,17 +110,30 @@
 }
 
 .weekDay-text{
-margin: 1%;
-padding: 2%;
+    text-align: center;
+    color: white;
+    font-weight:bold ;
+    width: 100%;
+    height: 50%;
+    background: rgba(9,51,121,1);
+/* margin: 1%; */
+/* padding: 2%; */
 }
 
-.a-container ,.weatherText-container {
-    width: 100%;
+
+.top-container{
+    width: 90%;
     
     display:flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: top;
+    justify-content: space-between;
     margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    /* background: chartreuse; */
+}
 
+.heartIcon{
+color: crimson;
 }

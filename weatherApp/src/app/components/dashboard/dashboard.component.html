@@ -1,48 +1,62 @@
-<div class="a-container">
-<div class="ng-autocomplete">
-    <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
-        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate">
-    </ng-autocomplete>
+<div class="dashboard-container">
+    <div class="a-container">
+        <div class="ng-autocomplete">
+            <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
 
-    <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
-    </ng-template>
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.name"></a>
+            </ng-template>
 
-    <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-    </ng-template>
-</div>
-</div>
-<div class="today-container">
-
-    <img [src]="currentCity.today.logoUrl" alt="" srcset="">
-    <div>
-        <h1>{{currentCity.cityName}}</h1>
-        <h1>{{currentCity.today.degree.celsius}}</h1>
-    </div>
-</div>
-
-<div>
-
-    <div class="weatherText-container">
-        <h1>{{currentCity.today.weatherText}}</h1>
-    </div>
-    <div class="weekDay-container">
-
-        
-        <div class="weekDay" *ngFor="let day of currentCity.weekDays">
-            <span class="weekDay-text">{{day.dayName}}</span>
-            <span>{{day.degree.celsius}}</span>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
         </div>
-        <!-- <ul>
-            <li *ngFor="let day of currentCity.weekDays">
-                <h1>{{day.date}}</h1> </li>
-        </ul> -->
     </div>
-    <!-- <div *ngIf="currentCity.weekDays!=null" *ngFor="let day of currentCity.weekDays">
-        <h1>{{day.degree.celsius}}</h1> 
-    </div> -->
 
+    <div class="top-container">
+
+        <div class="cityTitle-container">
+            <span class="cityTitle">{{currentCity.cityName}}</span>
+        </div>
+        <div>
+            <button (click)="toggleDegree()">{{toggleButtonText}}</button>
+            <button (click)="addToFavorites()">
+                <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> add to favorites
+            </button>
+        </div>
+    </div>
+    <div class="today-container">
+
+
+        <div class="todayIconDegrees-container">
+
+            <span class="degreeText" *ngIf="celsius===true">{{currentCity.today.degree.celsius}}</span>
+            <span class="degreeText" *ngIf="celsius===false">{{currentCity.today.degree.fahrenheit}}</span>
+            <img class="DayIcon" [src]="currentCity.today.logoUrl" alt="" srcset="">
+        </div>
+        <div class="weatherText-container">
+            <h1>{{currentCity.today.weatherText}}</h1>
+        </div>
+    </div>
+
+    <div class="days-container">
+
+
+        <div class="weekDay-container">
+
+
+            <div class="weekDay" *ngFor="let day of currentCity.weekDays">
+                <span class="weekDay-text">{{day.dayName}}</span>
+                <span *ngIf="celsius===true">{{day.degree.celsius}}</span>
+                <span *ngIf="celsius===false">{{day.degree.fahrenheit}}</span>
+            </div>
+
+        </div>
+
+
+    </div>
 
 </div>
