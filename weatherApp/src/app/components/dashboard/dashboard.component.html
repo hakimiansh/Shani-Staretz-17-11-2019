@@ -35,7 +35,7 @@
 
             <span class="degreeText" *ngIf="celsius===true">{{currentCity.today.degree.celsius}}</span>
             <span class="degreeText" *ngIf="celsius===false">{{currentCity.today.degree.fahrenheit}}</span>
-            <img class="DayIcon" [src]="currentCity.today.logoUrl" alt="" srcset="">
+            <img class="DayIcon" [src]="currentCity.today.logoUrl">
         </div>
         <div class="weatherText-container">
             <h1>{{currentCity.today.weatherText}}</h1>
@@ -50,8 +50,12 @@
 
             <div class="weekDay" *ngFor="let day of currentCity.weekDays">
                 <span class="weekDay-text">{{day.dayName}}</span>
+                
+                <img class="DayIcon" [src]="day.logoUrl" >
+                <span >{{day.weatherText}}</span>
                 <span *ngIf="celsius===true">{{day.degree.celsius}}</span>
                 <span *ngIf="celsius===false">{{day.degree.fahrenheit}}</span>
+
             </div>
 
         </div>

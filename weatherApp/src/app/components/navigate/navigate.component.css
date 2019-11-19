@@ -5,7 +5,7 @@ nav {
     background-color: lightblue;
 }
 nav a {
-    background: green;
+    /* background: green; */
     width: 50%;
     height: 100%;
     color: #000;

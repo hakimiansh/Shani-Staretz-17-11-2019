@@ -1,1 +1,16 @@
-<p>favorites works!</p>
+<div class="favorites-container">
+<div class="weekDay-container">
+
+        <div class="weekDay" *ngFor="let city of favorites">
+                <span class="weekDay-text">{{city.cityName}}</span>
+            
+            
+            <img class="DayIcon" [src]="city.today.logoUrl" >
+            <span >{{city.today.weatherText}}</span>
+            <span *ngIf="celsius===true">{{city.today.degree.celsius}}</span>
+            <span *ngIf="celsius===false">{{city.degree.fahrenheit}}</span>
+
+        </div>
+
+    </div>
+</div>

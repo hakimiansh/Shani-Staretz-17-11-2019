@@ -1,0 +1,67 @@
+
+.favorites-container{
+    width: 100%;
+    height: 200%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+}
+
+
+.weekDay-container{
+    width: 90%;
+    height: 90%;
+    display:grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    /* grid-template-rows: 20% 20% ; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    /* background: steelblue; */
+    /* border-radius: 10%; */
+    /* border: solid 3px grey; */
+    /* height: 300px;
+    width: 90%;
+    margin: 2%;
+    padding: 1%; */
+}
+
+.weekDay{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: linear-gradient( rgba(9,51,121,1) 35%, rgba(0,212,255,1) 100%);;
+    color:white;
+     border-radius: 10%;
+    /* border: solid 3px grey; */
+    /* height: 90%;*/
+    width: 70%; 
+    margin: 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 1%;
+    font-size: 200%;
+}
+.days-container{
+    width: 80%;
+    border-color: steelblue;
+
+}
+
+
+.weekDay-text{
+    text-align: center;
+    color: white;
+    font-weight:bold ;
+    /* width: 100%;
+    height: 10%;
+    background: rgba(9,51,121,1); */
+/* margin: 1%; */
+/* padding: 2%; */
+}
+
+.DayIcon{
+    width:80%;
+    height: 40%;
+}

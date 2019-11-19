@@ -17,8 +17,9 @@ export class AppComponent implements OnInit {
     this.currentCity={cityId:"215854",cityName:"Tel Aviv",today:null,weekDays:null}
   }
   ngOnInit(): void {
-    this.getCities();
+    // this.getCities();
     // this.getCurrentCityWeather(this.currentCity.cityId);
+    // console.log(this.currentCity);
     // this.getAutocompleteCity(this.currentCity.cityName);
     // this.getforecasts(this.currentCity.cityId);
   }
@@ -35,9 +36,8 @@ export class AppComponent implements OnInit {
     this.citiesService.getCurrentCityWeather(cityID)
     .then(d=>{
       this.currentCity.today=d;
-      // console.log("this.currentCity",this.currentCity);
     });
-    ;
+    this.getforecasts(cityID);
   }
   getAutocompleteCity(cityName:string){
     this.citiesService.getAutocompleteCity(cityName)
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
       ;
       // console.log("d",d);
     });
-    ;
+    
   }
 
   getforecasts(cityID:string){

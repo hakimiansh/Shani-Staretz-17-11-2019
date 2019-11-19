@@ -6,6 +6,7 @@ import { Day } from 'src/app/modules/day';
 
 import { ICONS } from 'src/assets/weatherIcons';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,12 +23,17 @@ export class CitiesService {
   }
 
   async getTopCities() {
-
+    // var cityes:City[]=[]
     try {
       const response = await fetch(this.citiesUrl);
       const data = await response.json();
       for (const k in data) {
         if (data.hasOwnProperty(k)) {
+          // cityes[k]={cityId: data[k].Key,
+          //   cityName: data[k].LocalizedName,
+          //   //     // today: await this.getCity(myData[i].Key),
+          //   today: null,
+          //   weekDays: null};
           this.cities[k] = {
             cityId: data[k].Key,
             cityName: data[k].LocalizedName,
@@ -59,7 +65,17 @@ export class CitiesService {
 
 
       for (let i = 0; i < dForecasts.length; i++) {
-        let temp: Day = { date: dForecasts[i].Date, degree: { celsius: dForecasts[i].Temperature.Minimum.Value + '\xB0C', fahrenheit: this.cToF(dForecasts[i].Temperature.Minimum.Value) }, logoUrl: this.getLogoURL(dForecasts[i].Day.Icon) }
+
+        let temp: Day = {
+          date: dForecasts[i].Date,
+          dayName: this.getLocaleDayName(dForecasts[i].Date),
+          logoUrl: this.getLogoURL(dForecasts[i].Day.Icon),
+          weatherText: this.getLogoText(dForecasts[i].Day.Icon),
+          degree: {
+            celsius: dForecasts[i].Temperature.Minimum.Value + '\xB0C',
+            fahrenheit: this.cToF(dForecasts[i].Temperature.Minimum.Value)
+          }
+        }
         weekDays.push(temp);
 
       }
@@ -105,8 +121,10 @@ export class CitiesService {
 
   }
 
-  async getCurrentCityWeather(id: string): Promise<Day> {
+  // async getC
 
+  async getCurrentCityWeather(id: string): Promise<Day> {
+    // console.log("service-id", id,"typeof" ,typeof(id));
     var url = `${currentCityConditions}${id}?apikey=${apiKey}`;
     try {
 
@@ -114,15 +132,20 @@ export class CitiesService {
 
       const data = await response.json();
 
-      if (data[0] !== null) {
-        return {
+      if (data[0] !== null && data[0] !== undefined) {
+        let day = {
+          // return {
+          dayName: "",//this.getLocaleDayName(data[0].LocalObservationDateTime),
           date: data[0].LocalObservationDateTime,
-          degree: {
-            celsius: data[0].Temperature.Metric.Value,
-            fahrenheit: data[0].Temperature.Imperial.Value
-          },
           logoUrl: this.getLogoURL(data[0].WeatherIcon),
+          weatherText: this.getLogoText(data[0].WeatherIcon),
+          degree: {
+            celsius: data[0].Temperature.Metric.Value + '\xB0C',
+            fahrenheit: data[0].Temperature.Imperial.Value + ' \xB0F'
+          },
         };
+
+        return day;
       }
       else {
         throw "no results";
@@ -133,6 +156,16 @@ export class CitiesService {
     }
 
 
+  }
+
+  getLocaleDayName(fullDay: string) {
+    console.log("fullDay", fullDay);
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var day = new Date(fullDay);
+    var i = day.getDay();
+
+    console.log("days[i]", days[i]);
+    return days[i];
   }
   // readCity(myData): Day {
 
@@ -149,7 +182,14 @@ export class CitiesService {
   // }
   getLogoURL(weatherIcon): string {
     let res = ICONS.find(obj => obj.icon_id === weatherIcon);
+
     return res.imgSrc;
+  }
+
+  getLogoText(weatherIcon): string {
+    let res = ICONS.find(obj => obj.icon_id === weatherIcon);
+
+    return res.text;
   }
 
   cToF(celsius): string {
@@ -168,4 +208,67 @@ export class CitiesService {
     return fToCel + '\xB0C';
   }
 
+  getTelAviv() {
+    var TA: City = {
+      cityId: "215854",
+      cityName: "Tel Aviv",
+      today: {
+        date: new Date(),
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        },
+        logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png"
+      },
+      weekDays: [{
+        date: new Date(), logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png",
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        },
+      },
+      {
+        date: new Date(), logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png",
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        }
+      },
+      {
+        date: new Date(), logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png",
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        }
+      },
+      {
+        date: new Date(), logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png",
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        }
+      },
+      {
+        date: new Date(), logoUrl: "https://developer.accuweather.com/sites/default/files/01-s.png",
+        dayName: "Tuesday",
+        weatherText: "Sunny",
+        degree: {
+          celsius: "23",
+          fahrenheit: "60"
+        }
+      }]
+
+    }
+    return TA;
+  }
 }

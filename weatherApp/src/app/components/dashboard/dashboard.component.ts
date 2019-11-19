@@ -16,7 +16,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 export class DashboardComponent implements OnInit {
   currentCity: City;
   celsius: boolean;
-  toggleButtonText:string
+  toggleButtonText: string
   favoriteIcon = faHeart;
 
   keyword = 'name';
@@ -44,15 +44,29 @@ export class DashboardComponent implements OnInit {
       weekDays: null
     }
     this.celsius = true;
-    this.toggleButtonText='\xB0F' +'/' +'\xB0C';
+    this.toggleButtonText = '\xB0F' + '/' + '\xB0C';
   }
 
   ngOnInit() {
+    // this.currentCity=this.citiesService.getTelAviv();
     this.fillCityData(this.currentCity.cityId)
   }
 
   addToFavorites() {
-    alert("adding to favorites" + this.currentCity.cityId);
+    
+    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+ 
+    if(favorites.some(obj=>obj.id===this.currentCity.cityId)===false)
+    {
+      favorites.push({ id: this.currentCity.cityId, name: this.currentCity.cityName });
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      alert("added to favorites succesfully!");
+    }
+    else {
+     
+      alert("already in favorites");
+    }
+
 
   }
 
