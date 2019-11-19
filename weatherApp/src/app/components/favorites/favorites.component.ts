@@ -40,8 +40,6 @@ export class FavoritesComponent implements OnInit {
           }
           this.favorites.push(city);
         });
-
-
     }
     // this.favorites.push(this.citiesService.getTelAviv());
     // this.favorites.push(this.citiesService.getTelAviv());
@@ -54,5 +52,11 @@ export class FavoritesComponent implements OnInit {
 
 
   }
+
+  goToCity(id:string)
+  {
+    window.location.href="http://localhost:4200/dashboard/id:"+id;
+    // alert("going to city:"+id);
+}
 
 }

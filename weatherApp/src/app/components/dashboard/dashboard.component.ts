@@ -4,6 +4,9 @@ import { CitiesService } from 'src/services/cities.service';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { Day } from 'src/app/modules/day';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import {ActivatedRoute} from '@angular/router';
+import { Alert } from 'selenium-webdriver';
+import { $ } from 'protractor';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class DashboardComponent implements OnInit {
   celsius: boolean;
   toggleButtonText: string
   favoriteIcon = faHeart;
+  isFavorite: boolean;
 
   keyword = 'name';
   data = [
@@ -27,7 +31,7 @@ export class DashboardComponent implements OnInit {
     }
   ];
 
-  constructor(private citiesService: CitiesService) {
+  constructor(private citiesService: CitiesService, private route: ActivatedRoute) {
     this.currentCity = {
       cityId: "215854",
       cityName: "Tel Aviv",
@@ -45,12 +49,46 @@ export class DashboardComponent implements OnInit {
     }
     this.celsius = true;
     this.toggleButtonText = '\xB0F' + '/' + '\xB0C';
+
+    this.isFavorite = false;
   }
 
   ngOnInit() {
-    // this.currentCity=this.citiesService.getTelAviv();
-    this.fillCityData(this.currentCity.cityId)
+   
+    this.isFavorite = this.getIsFavorite();
+    var id=this.route.snapshot.paramMap.get("id");
+    if(id){
+      var id_value=id.substring(id.indexOf(":")+1,id.length);
+      
+    this.currentCity.cityName = this.getCityNameById(id_value);
+      this.fillCityData(id_value)
+    }else{
+      this.currentCity=this.citiesService.getTelAviv();
+      // this.fillCityData(this.currentCity.cityId)
+    }
+    
+    
   }
+  getCityNameById(id: string): string { 
+     var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+     var results = favorites.find(obj=>{
+       return obj.id===id;
+     });
+     
+     return results.name;
+ 
+  }
+  getIsFavorite(): boolean {
+    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+ 
+    if(favorites.some(obj=>obj.id===this.currentCity.cityId)===false)
+    {
+      return false;
+    
+    }
+    return true;
+  }
+
 
   addToFavorites() {
     
@@ -61,12 +99,32 @@ export class DashboardComponent implements OnInit {
       favorites.push({ id: this.currentCity.cityId, name: this.currentCity.cityName });
       localStorage.setItem("favorites", JSON.stringify(favorites));
       alert("added to favorites succesfully!");
+      this.isFavorite=true;
     }
     else {
      
       alert("already in favorites");
     }
 
+
+  }
+
+  removeFromFavorites(){
+    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+ 
+    if(favorites.some(obj=>obj.id===this.currentCity.cityId)===true)
+    
+    {
+      favorites.splice(favorites.findIndex(item=> item.id===this.currentCity.cityId),1);
+        // { id: this.currentCity.cityId, name: this.currentCity.cityName });
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      this.isFavorite=false;
+      alert("removed from favorites succesfully!");
+    }
+    else {
+     
+      alert("not in favorites");
+    }
 
   }
 
@@ -172,9 +230,14 @@ export class DashboardComponent implements OnInit {
   // }
 
   async onChangeSearch(val: string) {
+
+  
     var searchResults = [];
     searchResults = await this.getAutocompleteCity(val);
     this.data = searchResults;
+    
+
+  
   }
 
   onFocused(e) {

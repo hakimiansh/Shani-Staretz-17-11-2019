@@ -8,7 +8,8 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 const routes: Routes = [
   {path: '', component: DashboardComponent,  pathMatch: 'full'},
   {path:'dashboard', component: DashboardComponent},
-  {path:'favorites', component: FavoritesComponent}
+  {path:'favorites', component: FavoritesComponent},
+  {path:'dashboard/:id', component: DashboardComponent},
 ];
 
 @NgModule({

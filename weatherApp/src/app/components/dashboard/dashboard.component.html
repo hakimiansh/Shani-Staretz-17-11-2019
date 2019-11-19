@@ -1,9 +1,11 @@
 <div class="dashboard-container">
     <div class="a-container">
         <div class="ng-autocomplete">
+            <!-- <form> -->
+                <!-- <input type="text" ng-autocomplete pattern='^[A-Z]'> -->
             <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
                 (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate">
+                [notFoundTemplate]="notFoundTemplate" id="searchMe_sh">
             </ng-autocomplete>
 
             <ng-template #itemTemplate let-item>
@@ -13,6 +15,7 @@
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
             </ng-template>
+        <!-- </form> -->
         </div>
     </div>
 
@@ -23,9 +26,14 @@
         </div>
         <div>
             <button (click)="toggleDegree()">{{toggleButtonText}}</button>
-            <button (click)="addToFavorites()">
+            <button *ngIf="isFavorite===false" (click)="addToFavorites()">
+                
                 <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> add to favorites
             </button>
+            <button *ngIf="isFavorite===true" (click)="removeFromFavorites()">
+                
+                    <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> remove from favorites
+                </button>
         </div>
     </div>
     <div class="today-container">
