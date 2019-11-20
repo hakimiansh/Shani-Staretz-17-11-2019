@@ -19,7 +19,6 @@
 
 
 .cityTitle-container{
-    /* background-color:  lightcoral; */
     width: 80%;
     display:flex;
     flex-direction: row;
@@ -47,7 +46,6 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient( rgba(9,51,121,1) 35%, rgba(0,212,255,1) 100%);
-    /* border-radius: 15%; */
     border: solid 3px grey;
     height: 10%;
     width: 30%;
@@ -56,17 +54,14 @@
     color: white;
 }
 
-
-
 .todayIconDegrees-container{
     width: 80%;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* background: rgb(9,51,121); */
-
 }
+
 .degreeText{
     font-size: 80px;
     font-weight: bold;
@@ -79,7 +74,6 @@
 
 .weatherText-container{
     width: 100%;
-    /* background-color: lime; */
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -93,8 +87,6 @@
     align-items: center;
     justify-content: space-between;
     background: steelblue;
-    /* border-radius: 10%; */
-    /* border: solid 3px grey; */
     height: 70%;
     width: 100%;
     margin: 2%;
@@ -109,13 +101,13 @@
     background: linear-gradient( rgba(9,51,121,1) 35%, rgba(0,212,255,1) 100%);;
     color:white;
      border-radius: 10%;
-    /* border: solid 3px grey; */
     height: 90%;
     width: 10%;
     margin: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 1%;
 }
+
 .days-container{
     width: 80%;
     border-color: steelblue;
@@ -131,14 +123,11 @@
     width: 100%;
     height: 50%;
     background: rgba(9,51,121,1);
-/* margin: 1%; */
-/* padding: 2%; */
 }
 
 
 .top-container{
     width: 90%;
-    
     display:flex;
     flex-direction: row;
     align-items: top;
@@ -146,7 +135,6 @@
     margin-top: 1%;
     margin-left: 5%;
     margin-right: 5%;
-    /* background: chartreuse; */
 }
 
 .heartIcon{

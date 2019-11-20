@@ -1,11 +1,10 @@
 <div class="dashboard-container">
     <div class="a-container">
         <div class="ng-autocomplete">
-            <!-- <form> -->
-                <!-- <input type="text" ng-autocomplete pattern='^[A-Z]'> -->
+        
             <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
                 (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate" id="searchMe_sh">
+                [notFoundTemplate]="notFoundTemplate">
             </ng-autocomplete>
 
             <ng-template #itemTemplate let-item>
@@ -15,7 +14,6 @@
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
             </ng-template>
-        <!-- </form> -->
         </div>
     </div>
 
@@ -24,16 +22,16 @@
         <div class="cityTitle-container">
             <span class="cityTitle">{{currentCity.cityName}}</span>
         </div>
-        <div>
+        <div class="btn-container">
             <button (click)="toggleDegree()">{{toggleButtonText}}</button>
             <button *ngIf="isFavorite===false" (click)="addToFavorites()">
-                
+
                 <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> add to favorites
             </button>
             <button *ngIf="isFavorite===true" (click)="removeFromFavorites()">
-                
-                    <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> remove from favorites
-                </button>
+
+                <fa-icon class="heartIcon" [icon]="favoriteIcon"></fa-icon> remove from favorites
+            </button>
         </div>
     </div>
     <div class="today-container">
@@ -58,9 +56,9 @@
 
             <div class="weekDay" *ngFor="let day of currentCity.weekDays">
                 <span class="weekDay-text">{{day.dayName}}</span>
-                
-                <img class="DayIcon" [src]="day.logoUrl" >
-                <span >{{day.weatherText}}</span>
+
+                <img class="DayIcon" [src]="day.logoUrl">
+                <span>{{day.weatherText}}</span>
                 <span *ngIf="celsius===true">{{day.degree.celsius}}</span>
                 <span *ngIf="celsius===false">{{day.degree.fahrenheit}}</span>
 

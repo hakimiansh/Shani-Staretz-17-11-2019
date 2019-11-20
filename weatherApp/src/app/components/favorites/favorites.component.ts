@@ -13,17 +13,19 @@ import { CityShort } from 'src/app/modules/cityShort';
 export class FavoritesComponent implements OnInit {
   favorites: City[];
   favoritesIds: CityShort[];
+  toggleButtonText: string
   celsius: boolean;
+
   constructor(private citiesService: CitiesService) {
     this.favoritesIds = [];
     this.favorites = [];
     this.celsius = true;
-
+    this.toggleButtonText = '\xB0F' + '/' + '\xB0C';
   }
 
   ngOnInit() {
-    // window.localStorage.clear();
-    this.favoritesIds = JSON.parse(localStorage.getItem("favorites"))||[];
+
+    this.favoritesIds = JSON.parse(localStorage.getItem("favorites")) || [];
     console.log("favoritesIds: ", this.favoritesIds);
 
     for (let i = 0; i < this.favoritesIds.length; i++) {
@@ -41,22 +43,13 @@ export class FavoritesComponent implements OnInit {
           this.favorites.push(city);
         });
     }
-    // this.favorites.push(this.citiesService.getTelAviv());
-    // this.favorites.push(this.citiesService.getTelAviv());
-    // this.favorites.push(this.citiesService.getTelAviv());
-    // this.favorites.push(this.citiesService.getTelAviv());
-    // this.favorites.push(this.citiesService.getTelAviv());
-    // this.favorites.push(this.citiesService.getTelAviv());
-
-    // localStorage.setItem("favorites",JSON.stringify(this.favorites))
-
-
   }
 
-  goToCity(id:string)
-  {
-    window.location.href="http://localhost:4200/dashboard/id:"+id;
-    // alert("going to city:"+id);
-}
+  goToCity(id: string) {
+    window.location.href = "http://localhost:4200/dashboard/id:" + id;
+  }
 
+  toggleDegree() {
+    this.celsius = !this.celsius;
+  }
 }

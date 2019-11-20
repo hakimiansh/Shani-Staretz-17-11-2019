@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/modules/city';
 import { CitiesService } from 'src/services/cities.service';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { Day } from 'src/app/modules/day';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute} from '@angular/router';
-import { Alert } from 'selenium-webdriver';
-import { $ } from 'protractor';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +19,7 @@ export class DashboardComponent implements OnInit {
   isFavorite: boolean;
 
   keyword = 'name';
+  
   data = [
     {
       id: "215854",
@@ -51,6 +47,8 @@ export class DashboardComponent implements OnInit {
     this.toggleButtonText = '\xB0F' + '/' + '\xB0C';
 
     this.isFavorite = false;
+ 
+
   }
 
   ngOnInit() {
@@ -62,12 +60,11 @@ export class DashboardComponent implements OnInit {
       
     this.currentCity.cityName = this.getCityNameById(id_value);
       this.fillCityData(id_value)
-    }else{
-      this.currentCity=this.citiesService.getTelAviv();
-      // this.fillCityData(this.currentCity.cityId)
     }
-    
-    
+    else{
+      // this.currentCity=this.citiesService.getTelAviv();
+      this.fillCityData(this.currentCity.cityId)
+    }
   }
   getCityNameById(id: string): string { 
      var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -116,7 +113,6 @@ export class DashboardComponent implements OnInit {
     
     {
       favorites.splice(favorites.findIndex(item=> item.id===this.currentCity.cityId),1);
-        // { id: this.currentCity.cityId, name: this.currentCity.cityName });
       localStorage.setItem("favorites", JSON.stringify(favorites));
       this.isFavorite=false;
       alert("removed from favorites succesfully!");
@@ -143,32 +139,14 @@ export class DashboardComponent implements OnInit {
 
           }
         }
-
-        // console.log("searchResults",searchResults);
       });
     return searchResults;
   }
-
-  // async getCurrentCityWeather(cityID:string){
-
-  //   console.log("cityID",cityID);
-  //   let results:Day;
-  //   this.citiesService.getCurrentCityWeather(cityID)
-  //   .then(weatherResults=>{
-  //     console.log("weatherResults", weatherResults);
-  //     return weatherResults;
-  //     // this.currentCity.today=d;
-  //   });
-  //   // this.getforecasts(cityID);
-  //   // return results;
-  // }
 
   getforecasts(cityID: string) {
     this.citiesService.getforecasts(cityID)
       .then(d => {
         this.currentCity.weekDays = d;
-        // console.log("weekdays",d);
-        // console.log("this.currentCity",this.currentCity)
       });
   }
 
@@ -178,71 +156,29 @@ export class DashboardComponent implements OnInit {
       .then(weatherResults => {
 
         this.currentCity.today = weatherResults;
-        // console.log(this.currentCity.today.logoUrl);
       });
 
     this.citiesService.getforecasts(id)
       .then(weekDays => {
         this.currentCity.weekDays = weekDays;
-        // console.log("weekdays",d);
-        // console.log("this.currentCity",this.currentCity)
       });
   }
 
 
   selectEvent(item) {
+
     this.currentCity.cityName = item.name;
     this.currentCity.cityId = item.id;
-    this.fillCityData(item.id)
+    this.isFavorite = this.getIsFavorite();
+    this.fillCityData(item.id);
+    
   }
-
-
-
-  // async selectEvent(item) {
-  //   // console.log("item:", item);
-  //   // console.log( this.currentCity);
-  //   this.currentCity.cityName = item.name;
-  //   this.currentCity.cityId = item.id;
-
-  //   this.citiesService.getCurrentCityWeather(item.id)
-  //     .then(weatherResults => {
-
-  //       this.currentCity.today = weatherResults;
-  //       // console.log(this.currentCity.today.logoUrl);
-  //     });
-
-  //     this.citiesService.getforecasts(item.id)
-  //     .then(weekDays=>{
-  //       this.currentCity.weekDays=weekDays;
-  //       // console.log("weekdays",d);
-  //       // console.log("this.currentCity",this.currentCity)
-  //     });
-
-  //   //  await this.getCurrentCityWeather(item.id)  
-  //   //   .then(data => {
-  //   //     // this.cities=data;
-  //   //     console.log("data: ",data);
-  //   //     // console.log("cities: ",this.cities);
-  //   //   });
-  //   // console.log("results",(results));
-  //   // this.currentCity.today=results;
-
-  // }
-
   async onChangeSearch(val: string) {
 
   
     var searchResults = [];
     searchResults = await this.getAutocompleteCity(val);
     this.data = searchResults;
-    
-
-  
+      
   }
-
-  onFocused(e) {
-    // do something when input is focused
-  }
-
-
 }

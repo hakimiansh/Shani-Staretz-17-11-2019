@@ -1,14 +1,20 @@
+<div class="btn-container-container">
+<div class="btn-container">
+        <button (click)="toggleDegree()">{{toggleButtonText}}</button>
+    </div>
+</div>
 <div class="favorites-container">
-<div class="weekDay-container">
+    
+    <div class="weekDay-container">
 
         <div class="weekDay" *ngFor="let city of favorites" (click)="goToCity(city.cityId)">
-                <span class="weekDay-text">{{city.cityName}}</span>
-            
-            
-            <img class="DayIcon" [src]="city.today.logoUrl" >
-            <span class="day-weatherText" >{{city.today.weatherText}}</span>
-            <span class="day-weatherText"  *ngIf="celsius===true">{{city.today.degree.celsius}}</span>
-            <span class="day-weatherText"  *ngIf="celsius===false">{{city.degree.fahrenheit}}</span>
+            <span class="weekDay-text">{{city.cityName}}</span>
+
+
+            <img class="DayIcon" [src]="city.today.logoUrl">
+            <span class="day-weatherText">{{city.today.weatherText}}</span>
+            <span class="day-weatherText" *ngIf="celsius===true">{{city.today.degree.celsius}}</span>
+            <span class="day-weatherText" *ngIf="celsius===false">{{city.today.degree.fahrenheit}}</span>
 
         </div>
 
